@@ -6,13 +6,34 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import Button from "../components/Button";
 import LabelPassword from "../components/LabelPassword";
+import authService from "../appwrite/authService";
+import employeeService from "../appwrite/employeeService";
 
 const Login = () => {
   const [user, setUser] = useState({ userName: "", password: "" });
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-    console.log(user);
+
+    await authService
+      .login({ email: user.userName, password: user.password })
+      .then(async (res) => {
+        const dateTime = new Date();
+        const loginDateTime = dateTime.toISOString();
+
+        await employeeService
+          .markAttendance(res.$id, loginDateTime)
+          .then((res) => {
+            console.log(res);
+          })
+          .catch(async (err) => {
+            await authService.logout().then((res) => console.log(res));
+          });
+      });
+  };
+
+  const onLogout = async () => {
+    await authService.logout().then((res) => console.log(res));
   };
   return (
     <div className="">
@@ -60,6 +81,8 @@ const Login = () => {
           />
         </div>
       </form>
+
+      <Button onClick={onLogout}>Logout</Button>
     </div>
   );
 };
