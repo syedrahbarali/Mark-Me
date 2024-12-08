@@ -8,23 +8,27 @@ import Button from "../components/Button";
 import LabelPassword from "../components/LabelPassword";
 import authService from "../appwrite/authService";
 import employeeService from "../appwrite/employeeService";
+import { useDispatch } from "react-redux";
+import { login } from "../store/slices/authSlice";
 
 const Login = () => {
   const [user, setUser] = useState({ userName: "", password: "" });
+  const dispatch = useDispatch();
 
   const onSubmit = async (e) => {
     e.preventDefault();
 
     await authService
       .login({ email: user.userName, password: user.password })
-      .then(async (res) => {
+      .then(async (user) => {
         const dateTime = new Date();
         const loginDateTime = dateTime.toISOString();
 
         await employeeService
-          .markAttendance(res.$id, loginDateTime)
+          .markAttendance(user.$id, loginDateTime)
           .then((res) => {
-            console.log(res);
+            console.log(user);
+            dispatch(login(user));
           })
           .catch(async (err) => {
             await authService.logout().then((res) => console.log(res));
@@ -32,9 +36,6 @@ const Login = () => {
       });
   };
 
-  const onLogout = async () => {
-    await authService.logout().then((res) => console.log(res));
-  };
   return (
     <div className="">
       <form
@@ -81,8 +82,7 @@ const Login = () => {
           />
         </div>
       </form>
-
-      <Button onClick={onLogout}>Logout</Button>
+      <Button onClick={() => authService.logout()}> Logout</Button>
     </div>
   );
 };

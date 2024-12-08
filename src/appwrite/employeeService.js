@@ -32,7 +32,6 @@ class EmployeeService {
 
       if (attendance.$id) return true;
     } catch (err) {
-      console.error(err);
       throw err;
     }
   };
