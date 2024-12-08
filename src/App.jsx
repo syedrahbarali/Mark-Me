@@ -7,11 +7,13 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 import Layout from "./components/layouts/Layout";
 import Login from "./pages/Login";
 import authService from "./appwrite/authService";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { login } from "./store/slices/authSlice";
 import Spinner from "./components/Spinner";
 import Logo from "./components/Logo";
 import toast, { Toaster } from "react-hot-toast";
+import Dashboard from "./pages/Dashboard";
+import EmployeeProfile from "./components/EmployeeProfile";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -47,8 +49,11 @@ const App = () => {
       ) : (
         <div className="w-screen">
           <Routes>
+            <Route path="/login" element={<Login />} />
             <Route path="/" element={<Layout />}>
-              <Route path="/login" element={<Login />} />
+              <Route path="/" element={<Dashboard />}>
+                <Route path="profile" element={<EmployeeProfile />} />
+              </Route>
             </Route>
           </Routes>
         </div>
@@ -59,6 +64,7 @@ const App = () => {
 
 export default App;
 
-const UserProtectedRoute = ({ children }) => {
-    return 
-};
+// const PublicRoutes = ({ children }) => {
+//   const user = useSelector((store) => store.auth.status);
+//   return <>{user ? children : <Login />}</>;
+// };

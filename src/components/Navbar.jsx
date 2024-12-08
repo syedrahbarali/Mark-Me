@@ -4,7 +4,7 @@ import Container from "./Container";
 
 const Navbar = () => {
   return (
-    <header className="sticky top-0 shadow-md">
+    <header className="fixed left-0 w-screen bg-white top-0 shadow-md z-50">
       <Container className="py-4 flex items-center gap-8">
         <Logo />
 

@@ -37,10 +37,10 @@ const Login = () => {
   };
 
   return (
-    <div className="">
+    <div className="pt-[12vh]">
       <form
         action=""
-        className="border-2 shadow-md p-4 md:p-8 rounded-xl min-w-[320px] max-w-[480px] space-y-4 mx-auto mt-[12vh]"
+        className="border-2 shadow-md p-4 md:p-8 rounded-xl min-w-[320px] max-w-[480px] space-y-4 mx-auto "
       >
         <h3 className="text-2xl font-semibold my-4">
           Log in to <br /> your account
