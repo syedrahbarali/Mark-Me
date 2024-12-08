@@ -1,10 +1,11 @@
 import LabelInput from "../components/LabelInput";
 import { useState } from "react";
 import { Divider } from "@mui/material";
-import GoogleIcon from "@mui/icons-material/Google"; // For Google icon
-import FacebookIcon from "@mui/icons-material/Facebook"; // For Facebook icon
-import TwitterIcon from "@mui/icons-material/Twitter"; // For Twitter icon
+import GoogleIcon from "@mui/icons-material/Google";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import TwitterIcon from "@mui/icons-material/Twitter";
 import Button from "../components/Button";
+import LabelPassword from "../components/LabelPassword";
 
 const Login = () => {
   const [user, setUser] = useState({ userName: "", password: "" });
@@ -17,7 +18,7 @@ const Login = () => {
     <div className="">
       <form
         action=""
-        className="border-2 shadow-md p-4 md:p-8 rounded-xl min-w-[320px] max-w-[480px] space-y-4 mx-auto translate-y-[20%]"
+        className="border-2 shadow-md p-4 md:p-8 rounded-xl min-w-[320px] max-w-[480px] space-y-4 mx-auto mt-[12vh]"
       >
         <h3 className="text-2xl font-semibold my-4">
           Log in to <br /> your account
@@ -28,10 +29,9 @@ const Login = () => {
           type="email"
           placeholder="Username or Email"
         />
-        <LabelInput
+        <LabelPassword
           onChange={(e) => setUser({ ...user, password: e.target.value })}
           label="Password"
-          type="password"
           placeholder="Password"
         />
 
